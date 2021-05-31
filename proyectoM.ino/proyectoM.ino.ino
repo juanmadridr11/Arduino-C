@@ -16,8 +16,11 @@ double a = 1,b = 2,c = 4,d = 5,e = 7,f = 8,g = 10;
 
 
 const int botonIncremento = 12;
-
-
+const int trig = 10; 
+const int eco = 8;
+int duracion; 
+double distancia; 
+int led;
 
 int tiempoAntirebote = 10; 
 int EstadoIncremento = 0;
@@ -285,6 +288,8 @@ void setup(){
   pinMode(e,OUTPUT );
   pinMode(f,OUTPUT );
   pinMode(g,OUTPUT );
+  pinMode(trig,OUTPUT);
+  pinMode(eco, INPUT);
   servo_10.attach(10);
  
 
@@ -395,6 +400,22 @@ void loop()
    delay(50);
 
    actualizarNumero();
+
+   digitalWrite(trig,HIGH);
+   delay(1);
+   digitalWrite(trig,LOW);
+   duracion = pulseIn(eco, HIGH);
+   distancia = duracion/58.2;
+   Serial.println(distancia);
+   delay(200);
+
+   if (distancia <= 8 && distancia >= 0){
+
+    digitalWrite(led,HIGH);
+    delay(distancia * 10);
+    digitalWrite(led,LOW);
+    
+   }
    
 }
   
